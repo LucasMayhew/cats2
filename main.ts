@@ -519,6 +519,23 @@ c c c c c c c c c c c c c c c c
 c c c c c c c c c c c c c c c c 
 `
 }
+controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    blockSettings.remove("seting")
+    blockSettings.clear()
+    blockSettings.writeNumber("if savde", 22)
+})
+function doSomething3 () {
+    if (blockSettings.exists("life")) {
+        info.setLife(blockSettings.readNumber("life"))
+    } else {
+        info.setLife(3)
+    }
+    if (blockSettings.exists("score")) {
+        info.setScore(blockSettings.readNumber("score"))
+    } else {
+        info.setScore(0)
+    }
+}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (carge_or_not == 2) {
         caty.startEffect(effects.trail, 500)
@@ -1621,6 +1638,13 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.darkGroundNorth, function
 function doSomething2 () {
     music.playMelody("C5 D C5 D C5 D C5 D ", 248)
 }
+info.onLifeZero(function () {
+    blockSettings.remove("seting")
+    blockSettings.remove("x psishon")
+    blockSettings.remove("y psishon")
+    blockSettings.writeNumber("life", life)
+    game.over(false)
+})
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile24, function (sprite, location) {
     tiles.placeOnTile(sprite, tiles.getTileLocation(85, 5))
     locaskon = location
@@ -1636,6 +1660,7 @@ let mySprite3: Sprite = null
 let mySprite2: Sprite = null
 let f = 0
 let carge_or_not = 0
+let life = 0
 let miner: Sprite = null
 let Quest_sterted = 0
 let mySprite4: Sprite = null
@@ -1643,9 +1668,7 @@ let list: tiles.Location[] = []
 let Magic_Cat: Sprite = null
 let Ice_Cat: Sprite = null
 let caty: Sprite = null
-let life = 0
 info.setLife(3)
-life = info.life()
 caty = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . 
@@ -1839,6 +1862,10 @@ b b b b b b . . . . . . . . . .
 . . . 4 . 4 . . 4 . 4 . . . . . 
 `, SpriteKind.cat)
 tiles.placeOnTile(miner, tiles.getTileLocation(107, 26))
+doSomething3()
+blockSettings.writeNumber("seting", 0)
+caty.setPosition(blockSettings.readNumber("x psishon"), blockSettings.readNumber("y psishon"))
+life = info.life()
 forever(function () {
     frey.setImage(img`
 . . . . . . . . . . . . . . . . . 
@@ -2140,4 +2167,12 @@ forever(function () {
 })
 forever(function () {
 	
+})
+game.onUpdateInterval(1000, function () {
+    if (blockSettings.exists("seting")) {
+        blockSettings.writeNumber("x psishon", caty.x)
+        blockSettings.writeNumber("y psishon", caty.y)
+        blockSettings.writeNumber("life", info.life())
+        blockSettings.writeNumber("score", info.score())
+    }
 })
