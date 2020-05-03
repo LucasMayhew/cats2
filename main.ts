@@ -524,6 +524,7 @@ c c c c c c c c c c c c c c c c
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     blockSettings.remove("seting")
+    blockSettings.remove("seting")
     blockSettings.clear()
     blockSettings.writeNumber("if savde", 22)
     game.reset()
@@ -920,9 +921,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile26, function (sprite, location) {
-    lantern.startLanternEffect(mySprite)
-    lantern.setLightBandWidth(60)
-    lantern.setBreathingEnabled(false)
     scene.setBackgroundColor(15)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.fairy, function (sprite, otherSprite) {
@@ -2040,6 +2038,7 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile24, function (sprite, locatio
 })
 let target_2: Sprite = null
 let mySprite6: Sprite = null
+let mySprite: Sprite = null
 let locaskon: tiles.Location = null
 let mySprite5: Sprite = null
 let if_jupp2 = false
@@ -2047,7 +2046,6 @@ let if_jump = false
 let nothing_0 = false
 let Dron: Sprite = null
 let target: Sprite = null
-let mySprite: Sprite = null
 let mySprite2: Sprite = null
 let f = 0
 let random_numper = 0
@@ -2255,8 +2253,9 @@ b b b b b b . . . . . . . . . .
 . . . 4 . 4 . . 4 . 4 . . . . . 
 `, SpriteKind.cat)
 tiles.placeOnTile(miner, tiles.getTileLocation(107, 26))
-doSomething3()
 blockSettings.writeNumber("seting", 0)
+blockSettings.remove("seting")
+doSomething3()
 caty.setPosition(blockSettings.readNumber("x psishon"), blockSettings.readNumber("y psishon"))
 life = info.life()
 game.onUpdateInterval(500, function () {
@@ -2475,18 +2474,23 @@ forever(function () {
     }
 })
 forever(function () {
-    music.setTempo(140)
-    for (let index = 0; index < 4; index++) {
-        music.playTone(587, music.beat(BeatFraction.Half))
+    if (Quest_sterted == 5) {
+        music.setTempo(140)
+        for (let index = 0; index < 4; index++) {
+            music.playTone(587, music.beat(BeatFraction.Half))
+            music.playTone(494, music.beat(BeatFraction.Half))
+            music.playTone(370, music.beat(BeatFraction.Half))
+            music.playTone(440, music.beat(BeatFraction.Half))
+            music.playTone(466, music.beat(BeatFraction.Half))
+        }
         music.playTone(494, music.beat(BeatFraction.Half))
-        music.playTone(370, music.beat(BeatFraction.Half))
-        music.playTone(440, music.beat(BeatFraction.Half))
-        music.playTone(466, music.beat(BeatFraction.Half))
+        music.playTone(392, music.beat(BeatFraction.Half))
+        music.playTone(880, music.beat(BeatFraction.Half))
+        music.playTone(698, music.beat(BeatFraction.Half))
+    } else {
+        music.playMelody("A G F E F G A E ", 220)
+        music.playMelody("E F G A G F E A ", 220)
     }
-    music.playTone(494, music.beat(BeatFraction.Half))
-    music.playTone(392, music.beat(BeatFraction.Half))
-    music.playTone(880, music.beat(BeatFraction.Half))
-    music.playTone(698, music.beat(BeatFraction.Half))
 })
 forever(function () {
     if (caty.isHittingTile(CollisionDirection.Bottom)) {
