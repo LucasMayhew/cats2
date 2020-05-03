@@ -4,6 +4,8 @@ namespace SpriteKind {
     export const fairy = SpriteKind.create()
     export const boss = SpriteKind.create()
     export const prop = SpriteKind.create()
+    export const prget = SpriteKind.create()
+    export const nothing = SpriteKind.create()
 }
 namespace myTiles {
     //% blockIdentity=images._tile
@@ -930,6 +932,47 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.fairy, function (sprite, otherSp
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
 	
 })
+function Droan () {
+    target = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.Food)
+    Dron = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . f f f f f f f . . . . . 
+. . . f b b b b b b b f . . . . 
+. . f b b b b b b b b b f . . . 
+. . f b b b b b f f f f f . . . 
+. . f b b b b b f 5 5 5 f . . . 
+. . f b b b b b f 5 5 5 f . . . 
+. . f b b b b b f 5 5 5 f . . . 
+. . f b b b b b f f f f f . . . 
+. . f b b b b b b b b b f . . . 
+. . . f b b b b b b b f . . . . 
+. . . . f f f f f f f . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.nothing)
+    Dron.setPosition(caty.x, caty.y)
+    Dron.follow(caty, 70)
+    nothing_0 = false
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.cat, function (sprite, otherSprite) {
     if (otherSprite == Ice_Cat) {
         if (Quest_sterted == 2) {
@@ -1107,6 +1150,10 @@ c c c c c c . . . . . . . . . .
         )
         Quest_sterted = 5
     }
+})
+sprites.onOverlap(SpriteKind.prget, SpriteKind.Food, function (sprite, otherSprite) {
+    sprite.destroy()
+    otherSprite.destroy()
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     for (let index = 0; index < 21; index++) {
@@ -1759,7 +1806,6 @@ c d d 1 1 d d c
     } else {
         info.changeLifeBy(-1)
         music.powerDown.play()
-        pause(500)
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -1769,6 +1815,122 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
             caty.x += 1
             pause(1)
         }
+    }
+})
+sprites.onOverlap(SpriteKind.prop, SpriteKind.Enemy, function (sprite, otherSprite) {
+    mySprite5 = sprites.create(img`
+. . b b b b . . 
+. b 5 5 5 5 b . 
+b 5 d 3 3 d 5 b 
+b 5 3 5 5 1 5 b 
+c 5 3 5 5 1 d c 
+c d d 1 1 d d c 
+. f d d d d f . 
+. . f f f f . . 
+`, SpriteKind.coin)
+    mySprite5.setPosition(otherSprite.x, otherSprite.y)
+    mySprite5.ay = 50
+    otherSprite.destroy()
+    music.powerUp.play()
+    nothing_0 = false
+    for (let index = 0; index < 6; index++) {
+        mySprite3 = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . 9 . . . . . . . 
+. . . . . . . 2 4 5 . . . . . . 
+. . . . . . . . 8 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.prop)
+        mySprite3.setFlag(SpriteFlag.BounceOnWall, true)
+        mySprite3.setPosition(otherSprite.x, otherSprite.y)
+        mySprite3.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
+        animation.runImageAnimation(
+        mySprite3,
+        [img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . 9 . . . . . . . 
+. . . . . . . 2 4 5 . . . . . . 
+. . . . . . . . 8 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . 2 9 . . . . . . . 
+. . . . . . . 8 5 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . 2 . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`],
+        Math.randomRange(100, 300),
+        false
+        )
+        pause(300)
+        mySprite3.destroy()
     }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
@@ -1876,10 +2038,15 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile24, function (sprite, locatio
     tiles.placeOnTile(sprite, tiles.getTileLocation(85, 5))
     locaskon = location
 })
+let target_2: Sprite = null
+let mySprite6: Sprite = null
 let locaskon: tiles.Location = null
 let mySprite5: Sprite = null
 let if_jupp2 = false
 let if_jump = false
+let nothing_0 = false
+let Dron: Sprite = null
+let target: Sprite = null
 let mySprite: Sprite = null
 let mySprite2: Sprite = null
 let f = 0
@@ -2092,6 +2259,50 @@ doSomething3()
 blockSettings.writeNumber("seting", 0)
 caty.setPosition(blockSettings.readNumber("x psishon"), blockSettings.readNumber("y psishon"))
 life = info.life()
+game.onUpdateInterval(500, function () {
+    if (nothing_0) {
+        mySprite6 = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 2 2 2 2 2 . . . . . . 
+. . . . . 2 4 4 4 2 . . . . . . 
+. . . . . 2 4 5 4 2 . . . . . . 
+. . . . . 2 4 4 4 2 . . . . . . 
+. . . . . 2 2 2 2 2 . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.prget)
+        target_2 = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. 2 2 . . . . . . . . . . 2 2 . 
+. 2 2 2 . . . . . . . . 2 2 2 . 
+. . 2 2 2 . . . . . . 2 2 2 . . 
+. . . 2 2 . . . . . . 2 2 . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . 2 2 . . . . . . . 
+. . . . . . . 2 2 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . 2 2 . . . . . . 2 2 . . . 
+. . 2 2 2 . . . . . . 2 2 2 . . 
+. 2 2 2 . . . . . . . . 2 2 2 . 
+. 2 2 . . . . . . . . . . 2 2 . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.Food)
+        target_2.setPosition(target.x, target.y)
+        mySprite6.setPosition(Dron.x, Dron.y)
+        mySprite6.follow(target_2, 70)
+        mySprite6.setFlag(SpriteFlag.DestroyOnWall, true)
+    }
+})
 forever(function () {
     frey.setImage(img`
 . . . . . . . . . . . . . . . . . 
@@ -2264,7 +2475,18 @@ forever(function () {
     }
 })
 forever(function () {
-    music.playMelody("B C B E B C B E ", 220)
+    music.setTempo(140)
+    for (let index = 0; index < 4; index++) {
+        music.playTone(587, music.beat(BeatFraction.Half))
+        music.playTone(494, music.beat(BeatFraction.Half))
+        music.playTone(370, music.beat(BeatFraction.Half))
+        music.playTone(440, music.beat(BeatFraction.Half))
+        music.playTone(466, music.beat(BeatFraction.Half))
+    }
+    music.playTone(494, music.beat(BeatFraction.Half))
+    music.playTone(392, music.beat(BeatFraction.Half))
+    music.playTone(880, music.beat(BeatFraction.Half))
+    music.playTone(698, music.beat(BeatFraction.Half))
 })
 forever(function () {
     if (caty.isHittingTile(CollisionDirection.Bottom)) {
@@ -2356,26 +2578,7 @@ forever(function () {
 `)
             pause(200)
         } else {
-            if (f == 1) {
-                caty.setImage(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . 4 4 . . . 
-. . . . . . . . . . . 4 4 4 4 . 
-. . . . . . . . . . . 4 1 f 4 . 
-. . . . . . . . . . . 4 1 f 4 . 
-. . . . . . . . . . . 4 4 4 4 . 
-. 4 4 4 4 e 4 e 4 e 4 4 . . . . 
-. . . . 4 4 4 4 4 4 4 4 . . . . 
-. . . . 4 4 4 4 4 4 4 4 . . . . 
-. . . . 4 . 4 . . 4 . 4 . . . . 
-`)
-            } else if (f == 2) {
+            if (f == 2) {
                 caty.setImage(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -2393,6 +2596,25 @@ forever(function () {
 . . . 4 4 4 4 4 4 4 4 . . . . . 
 . . . 4 4 4 4 4 4 4 4 . . . . . 
 . . . 4 . 4 . . 4 . 4 . . . . . 
+`)
+            } else if (f == 1) {
+                caty.setImage(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . 4 4 . . . 
+. . . . . . . . . . . 4 4 4 4 . 
+. . . . . . . . . . . 4 1 f 4 . 
+. . . . . . . . . . . 4 1 f 4 . 
+. . . . . . . . . . . 4 4 4 4 . 
+. 4 4 4 4 e 4 e 4 e 4 4 . . . . 
+. . . . 4 4 4 4 4 4 4 4 . . . . 
+. . . . 4 4 4 4 4 4 4 4 . . . . 
+. . . . 4 . 4 . . 4 . 4 . . . . 
 `)
             }
         }
