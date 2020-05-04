@@ -921,7 +921,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile26, function (sprite, location) {
-    scene.setBackgroundColor(15)
+    lantern.stopLanternEffect()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.fairy, function (sprite, otherSprite) {
     info.setLife(life)
@@ -1803,7 +1803,7 @@ c d d 1 1 d d c
         }
     } else {
         info.changeLifeBy(-1)
-        music.powerDown.play()
+        music.powerDown.playUntilDone()
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -1936,9 +1936,10 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, func
     locaskon = location
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.darkGroundNorth, function (sprite, location) {
-    scene.setBackgroundColor(15)
-    lantern.startLanternEffect(caty)
-    mySprite = sprites.create(img`
+    if (Quest_sterted < 6) {
+        scene.setBackgroundColor(15)
+        lantern.startLanternEffect(caty)
+        THE_first_Boss = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -2020,7 +2021,9 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.darkGroundNorth, function
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.boss)
-    tiles.placeOnRandomTile(mySprite, myTiles.tile25)
+        tiles.placeOnRandomTile(THE_first_Boss, myTiles.tile25)
+        Quest_sterted = 6
+    }
 })
 function doSomething2 () {
     music.playMelody("C5 D C5 D C5 D C5 D ", 248)
@@ -2038,7 +2041,7 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile24, function (sprite, locatio
 })
 let target_2: Sprite = null
 let mySprite6: Sprite = null
-let mySprite: Sprite = null
+let THE_first_Boss: Sprite = null
 let locaskon: tiles.Location = null
 let mySprite5: Sprite = null
 let if_jupp2 = false
@@ -2254,7 +2257,6 @@ b b b b b b . . . . . . . . . .
 `, SpriteKind.cat)
 tiles.placeOnTile(miner, tiles.getTileLocation(107, 26))
 blockSettings.writeNumber("seting", 0)
-blockSettings.remove("seting")
 doSomething3()
 caty.setPosition(blockSettings.readNumber("x psishon"), blockSettings.readNumber("y psishon"))
 life = info.life()
@@ -2474,7 +2476,26 @@ forever(function () {
     }
 })
 forever(function () {
-    if (Quest_sterted == 5) {
+    if (Quest_sterted == 6) {
+        sprites.setDataNumber(THE_first_Boss, "life", 10)
+        Quest_sterted = 7
+        while (sprites.readDataNumber(THE_first_Boss, "life") > 0) {
+            THE_first_Boss.setFlag(SpriteFlag.BounceOnWall, true)
+            if (Math.percentChance(30)) {
+            	
+            } else if (Math.percentChance(30)) {
+            	
+            } else {
+                THE_first_Boss.setVelocity(23, 0)
+            }
+            pause(5000)
+            tiles.placeOnRandomTile(THE_first_Boss, myTiles.tile25)
+        }
+        THE_first_Boss.destroy()
+    }
+})
+forever(function () {
+    if (Quest_sterted > 4) {
         music.setTempo(140)
         for (let index = 0; index < 4; index++) {
             music.playTone(587, music.beat(BeatFraction.Half))
@@ -2491,6 +2512,9 @@ forever(function () {
         music.playMelody("A G F E F G A E ", 220)
         music.playMelody("E F G A G F E A ", 220)
     }
+})
+forever(function () {
+	
 })
 forever(function () {
     if (caty.isHittingTile(CollisionDirection.Bottom)) {
