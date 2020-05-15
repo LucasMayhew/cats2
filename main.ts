@@ -7,6 +7,7 @@ namespace SpriteKind {
     export const prget = SpriteKind.create()
     export const nothing = SpriteKind.create()
     export const ff = SpriteKind.create()
+    export const emmy_2 = SpriteKind.create()
 }
 namespace myTiles {
     //% blockIdentity=images._tile
@@ -1661,7 +1662,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava1, function (sp
 function doSomething () {
     list = tiles.getTilesByType(sprites.dungeon.collectibleRedCrystal)
     for (let value of list) {
-        mySprite4 = sprites.create(img`
+        the_emny2 = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -1687,13 +1688,13 @@ function doSomething () {
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
-        tiles.placeOnTile(mySprite4, value)
-        mySprite4.setVelocity(50, 0)
-        mySprite4.ay = 50
+        tiles.placeOnTile(the_emny2, value)
+        the_emny2.setVelocity(50, 0)
+        the_emny2.ay = 50
     }
     list = tiles.getTilesByType(sprites.dungeon.darkGroundNorthWest1)
     for (let value of list) {
-        mySprite4 = sprites.create(img`
+        the_emny2 = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -1719,9 +1720,9 @@ function doSomething () {
 . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
-        tiles.placeOnTile(mySprite4, value)
-        mySprite4.setVelocity(50, 0)
-        mySprite4.ay = 50
+        tiles.placeOnTile(the_emny2, value)
+        the_emny2.setVelocity(50, 0)
+        the_emny2.ay = 50
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSprite) {
@@ -2158,6 +2159,214 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile24, function (sprite, locatio
     tiles.placeOnTile(sprite, tiles.getTileLocation(85, 5))
     locaskon = location
 })
+scene.onHitWall(SpriteKind.emmy_2, function (sprite) {
+    if (sprite.isHittingTile(CollisionDirection.Left)) {
+        sprite.setVelocity(50, 0)
+    } else {
+        if (sprite.isHittingTile(CollisionDirection.Right)) {
+            sprite.setVelocity(-50, 0)
+        }
+    }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.emmy_2, function (sprite, otherSprite) {
+    if (sprite.y < otherSprite.top) {
+        if (sprites.readDataNumber(otherSprite, "life") <= 0) {
+            mySprite5 = sprites.create(img`
+. . . 2 4 . . . 
+. . 2 2 2 4 . . 
+. 2 2 2 2 2 4 . 
+. 2 2 4 2 2 4 . 
+. 2 2 4 2 2 4 . 
+. 2 2 2 2 2 4 . 
+. . 2 2 2 4 . . 
+. . . 2 4 . . . 
+`, SpriteKind.coin)
+            mySprite5.setPosition(otherSprite.x, otherSprite.y)
+            mySprite5.ay = 50
+            otherSprite.destroy()
+            music.powerUp.play()
+            for (let index = 0; index < 21; index++) {
+                caty.y += -1
+                pause(5)
+            }
+            if_jupp2 = true
+            for (let index = 0; index < 6; index++) {
+                mySprite3 = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . 9 . . . . . . . 
+. . . . . . . 2 4 5 . . . . . . 
+. . . . . . . . 8 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.prop)
+                mySprite3.setFlag(SpriteFlag.BounceOnWall, true)
+                mySprite3.setPosition(otherSprite.x, otherSprite.y)
+                mySprite3.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
+                animation.runImageAnimation(
+                mySprite3,
+                [img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . 9 . . . . . . . 
+. . . . . . . 2 4 5 . . . . . . 
+. . . . . . . . 8 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . 2 9 . . . . . . . 
+. . . . . . . 8 5 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . 2 . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`],
+                Math.randomRange(100, 300),
+                false
+                )
+                pause(300)
+                mySprite3.destroy()
+            }
+        } else {
+            sprites.changeDataNumberBy(otherSprite, "life", -1)
+            for (let index = 0; index < 30; index++) {
+                caty.y += -1
+                pause(1)
+            }
+            otherSprite.setImage(img`
+. . . . c c c c c c . . . . . . 
+. . . 4 4 4 4 4 4 4 c . . . . . 
+. . c 4 4 4 4 4 4 4 4 c . . . . 
+. c 4 4 4 4 4 4 4 4 4 4 c . . . 
+. c 4 c 4 4 4 4 c 4 4 4 c . . . 
+. f 4 4 f 4 4 f 4 4 4 4 f . . . 
+. f 4 4 4 4 4 4 4 4 4 4 f . . . 
+. . f 4 4 4 4 4 c 4 4 4 f c . . 
+. . . f c c c c 4 4 4 f 4 4 c . 
+. . c 4 2 4 4 4 4 c f 4 4 4 4 c 
+. c 4 4 2 4 4 c f c 4 4 4 4 c c 
+c 4 4 4 4 4 4 f c c 4 4 4 c . . 
+f 4 4 4 4 4 4 4 c 4 4 4 4 f . . 
+f 4 4 4 4 4 4 4 4 4 4 4 c f . . 
+. f 4 4 4 4 4 4 4 4 4 4 f . . . 
+. . c c c c c c c c c f . . . . 
+`)
+            pause(100)
+            otherSprite.setImage(img`
+. . . . c c c c c c . . . . . . 
+. . . c 6 7 7 7 7 6 c . . . . . 
+. . c 7 7 7 7 7 7 7 7 c . . . . 
+. c 6 7 7 7 7 7 7 7 7 6 c . . . 
+. c 7 c 6 6 6 6 c 7 7 7 c . . . 
+. f 7 6 f 6 6 f 6 7 7 7 f . . . 
+. f 7 7 7 7 7 7 7 7 7 7 f . . . 
+. . f 7 7 7 7 6 c 7 7 6 f c . . 
+. . . f c c c c 7 7 6 f 7 7 c . 
+. . c 7 2 7 7 7 6 c f 7 7 7 7 c 
+. c 7 7 2 7 7 c f c 6 7 7 6 c c 
+c 1 1 1 1 7 6 f c c 6 6 6 c . . 
+f 1 1 1 1 1 6 6 c 6 6 6 6 f . . 
+f 6 1 1 1 1 1 6 6 6 6 6 c f . . 
+. f 6 1 1 1 1 1 1 6 6 6 f . . . 
+. . c c c c c c c c c f . . . . 
+`)
+        }
+    } else {
+        info.changeLifeBy(-1)
+        music.powerDown.playUntilDone()
+    }
+})
+function doSomething4 () {
+    if (Quest_sterted == 7) {
+        list = tiles.getTilesByType(sprites.dungeon.darkGroundNorthWest1)
+        for (let value of list) {
+            the_emny2 = sprites.create(img`
+. . . . c c c c c c . . . . . . 
+. . . c 6 7 7 7 7 6 c . . . . . 
+. . c 7 7 7 7 7 7 7 7 c . . . . 
+. c 6 7 7 7 7 7 7 7 7 6 c . . . 
+. c 7 c 6 6 6 6 c 7 7 7 c . . . 
+. f 7 6 f 6 6 f 6 7 7 7 f . . . 
+. f 7 7 7 7 7 7 7 7 7 7 f . . . 
+. . f 7 7 7 7 6 c 7 7 6 f c . . 
+. . . f c c c c 7 7 6 f 7 7 c . 
+. . c 7 2 7 7 7 6 c f 7 7 7 7 c 
+. c 7 7 2 7 7 c f c 6 7 7 6 c c 
+c 1 1 1 1 7 6 f c c 6 6 6 c . . 
+f 1 1 1 1 1 6 6 c 6 6 6 6 f . . 
+f 6 1 1 1 1 1 6 6 6 6 6 c f . . 
+. f 6 1 1 1 1 1 1 6 6 6 f . . . 
+. . c c c c c c c c c f . . . . 
+`, SpriteKind.emmy_2)
+            tiles.placeOnTile(the_emny2, value)
+            the_emny2.setVelocity(50, 0)
+            the_emny2.ay = 50
+            sprites.setDataNumber(the_emny2, "life", 2)
+        }
+    }
+}
 sprites.onOverlap(SpriteKind.boss, SpriteKind.ff, function (sprite, otherSprite) {
     if (sprites.readDataNumber(otherSprite, "if hit") == 1) {
         music.powerUp.play()
@@ -2351,7 +2560,7 @@ let name = ""
 let Quest_sterted = 0
 let life = 0
 let miner: Sprite = null
-let mySprite4: Sprite = null
+let the_emny2: Sprite = null
 let list: tiles.Location[] = []
 let Magic_Cat: Sprite = null
 let Ice_Cat: Sprite = null
@@ -2479,16 +2688,15 @@ c c c c c c . . . . . . . . . .
 . e . . . 4 . . 4 . 4 . . . . . 
 `, SpriteKind.cat)
 tiles.placeOnTile(Magic_Cat, tiles.getTileLocation(55, 7))
-doSomething()
 list = tiles.getTilesByType(myTiles.tile15)
 for (let value of list) {
-    mySprite4 = sprites.create(myTiles.tile15, SpriteKind.Food)
-    tiles.placeOnTile(mySprite4, value)
+    the_emny2 = sprites.create(myTiles.tile15, SpriteKind.Food)
+    tiles.placeOnTile(the_emny2, value)
 }
 list = tiles.getTilesByType(myTiles.tile16)
 for (let value of list) {
-    mySprite4 = sprites.create(myTiles.tile16, SpriteKind.Food)
-    tiles.placeOnTile(mySprite4, value)
+    the_emny2 = sprites.create(myTiles.tile16, SpriteKind.Food)
+    tiles.placeOnTile(the_emny2, value)
 }
 let fairy = sprites.create(img`
 . . . . . . . . . . . . . . . . . 
@@ -2564,6 +2772,9 @@ if (Quest_sterted >= 6) {
     }
     tiles.setTileAt(tiles.getTileLocation(21, 5), myTiles.tile34)
     tiles.placeOnRandomTile(Magic_Cat, myTiles.tile38)
+    doSomething4()
+} else {
+    doSomething()
 }
 game.onUpdateInterval(500, function () {
     if (nothing_0) {
