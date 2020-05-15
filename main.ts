@@ -2476,6 +2476,17 @@ blockSettings.writeNumber("seting", 0)
 doSomething3()
 caty.setPosition(blockSettings.readNumber("x psishon"), blockSettings.readNumber("y psishon"))
 life = info.life()
+if (Quest_sterted >= 6) {
+    for (let value of tiles.getTilesByType(myTiles.tile29)) {
+        tiles.setTileAt(value, sprites.dungeon.darkGroundCenter)
+        tiles.setWallAt(value, false)
+    }
+    for (let value of tiles.getTilesByType(myTiles.tile28)) {
+        tiles.setTileAt(value, sprites.dungeon.darkGroundCenter)
+        tiles.setWallAt(value, false)
+    }
+    tiles.setTileAt(tiles.getTileLocation(21, 5), myTiles.tile34)
+}
 game.onUpdateInterval(500, function () {
     if (nothing_0) {
         mySprite6 = sprites.create(img`
