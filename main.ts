@@ -779,6 +779,11 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     blockSettings.writeNumber("if savde", 22)
     game.reset()
 })
+function git_gimes (mySprite: Sprite) {
+    game.splash("Git gims", sprites.readDataString(mySprite, "name"))
+    game.splash("and I will give you", sprites.readDataString(mySprite, "name"))
+    game.splash("the power to triple jump!", sprites.readDataString(mySprite, "name"))
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.prget, function (sprite, otherSprite) {
     otherSprite.destroy()
     music.powerDown.play()
@@ -819,7 +824,7 @@ function doSomething3 () {
 }
 scene.onHitWall(SpriteKind.prop, function (sprite) {
     for (let index = 0; index < 10; index++) {
-        mySprite3 = sprites.create(img`
+        ice_projectile = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -837,12 +842,12 @@ scene.onHitWall(SpriteKind.prop, function (sprite) {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.prop)
-        mySprite3.setFlag(SpriteFlag.Ghost, true)
-        mySprite3.setPosition(sprite.x, sprite.y)
-        mySprite3.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
+        ice_projectile.setFlag(SpriteFlag.Ghost, true)
+        ice_projectile.setPosition(sprite.x, sprite.y)
+        ice_projectile.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
         random_numper = Math.randomRange(100, 300)
         animation.runImageAnimation(
-        mySprite3,
+        ice_projectile,
         [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -919,11 +924,11 @@ scene.onHitWall(SpriteKind.prop, function (sprite) {
     }
     sprite.destroy()
     for (let index = 0; index < 10; index++) {
-        mySprite3.destroy()
+        ice_projectile.destroy()
     }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (carge_or_not == 2) {
+    if (carge_or_not >= 1) {
         caty.startEffect(effects.trail, 500)
         for (let index = 0; index < 21; index++) {
             caty.x += -1
@@ -935,7 +940,7 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile34, function (sprite, locatio
     tiles.placeOnTile(sprite, tiles.getTileLocation(160, 5))
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (carge_or_not == 1) {
+    if (carge_or_not == 2) {
         if (f == 1) {
             mySprite2 = sprites.create(img`
 . . . . . . . . . . . . . . . . 
@@ -958,7 +963,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             mySprite2.setPosition(caty.x, caty.y)
             mySprite2.setVelocity(50, 0)
             for (let index = 0; index < Math.randomRange(4, 8); index++) {
-                mySprite3 = sprites.create(img`
+                ice_projectile = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -976,12 +981,12 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.Projectile)
-                mySprite3.setFlag(SpriteFlag.Ghost, true)
-                mySprite3.setPosition(mySprite2.x, mySprite2.y)
-                mySprite3.setVelocity(-20, 20)
+                ice_projectile.setFlag(SpriteFlag.Ghost, true)
+                ice_projectile.setPosition(mySprite2.x, mySprite2.y)
+                ice_projectile.setVelocity(-20, 20)
                 random_numper = Math.randomRange(100, 300)
                 animation.runImageAnimation(
-                mySprite3,
+                ice_projectile,
                 [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1055,7 +1060,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 false
                 )
                 pause(2 * random_numper)
-                mySprite3.destroy()
+                ice_projectile.destroy()
             }
         } else {
             if (f == 2) {
@@ -1080,7 +1085,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 mySprite2.setPosition(caty.x, caty.y)
                 mySprite2.setVelocity(-50, 0)
                 for (let index = 0; index < Math.randomRange(4, 8); index++) {
-                    mySprite3 = sprites.create(img`
+                    ice_projectile = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1098,12 +1103,12 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.Projectile)
-                    mySprite3.setFlag(SpriteFlag.Ghost, true)
-                    mySprite3.setPosition(mySprite2.x, mySprite2.y)
-                    mySprite3.setVelocity(20, 20)
+                    ice_projectile.setFlag(SpriteFlag.Ghost, true)
+                    ice_projectile.setPosition(mySprite2.x, mySprite2.y)
+                    ice_projectile.setVelocity(20, 20)
                     random_numper = Math.randomRange(100, 300)
                     animation.runImageAnimation(
-                    mySprite3,
+                    ice_projectile,
                     [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1177,7 +1182,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                     false
                     )
                     pause(2 * random_numper)
-                    mySprite3.destroy()
+                    ice_projectile.destroy()
                 }
             }
         }
@@ -1389,9 +1394,9 @@ c c c c c c . . . . . . . . . .
                 Magic_Cat.say("thank you")
                 Quest_sterted = 4
                 if (game.ask("ice projectile = yes", "charge = no")) {
-                    carge_or_not = 1
-                } else {
                     carge_or_not = 2
+                } else {
+                    carge_or_not = 1
                 }
                 tiles.placeOnRandomTile(Magic_Cat, myTiles.tile38)
             }
@@ -1447,7 +1452,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
 `)
     for (let index = 0; index < 10; index++) {
-        mySprite3 = sprites.create(img`
+        ice_projectile = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1465,11 +1470,11 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.Projectile)
-        mySprite3.setFlag(SpriteFlag.Ghost, true)
-        mySprite3.setPosition(sprite.x, sprite.y)
-        mySprite3.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
+        ice_projectile.setFlag(SpriteFlag.Ghost, true)
+        ice_projectile.setPosition(sprite.x, sprite.y)
+        ice_projectile.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
         animation.runImageAnimation(
-        mySprite3,
+        ice_projectile,
         [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1544,6 +1549,33 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
         )
     }
     sprite.destroy()
+    otherSprite.setImage(img`
+9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 1 1 1 1 1 1 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 1 1 1 1 1 1 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 1 1 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 1 1 9 9 9 9 9 9 9 f f f f 9 9 9 9 9 9 9 9 9 9 
+9 1 1 9 9 9 9 9 f f 1 1 1 1 f f 9 9 9 9 9 9 9 9 
+9 1 1 9 9 9 9 f b 1 1 1 1 1 1 b f 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 f d 1 1 1 1 1 1 1 f 9 9 9 9 9 9 9 
+9 9 9 9 9 9 f d d 1 1 1 1 1 1 1 d f 9 9 9 9 9 9 
+9 9 9 9 9 9 f d d d 1 1 1 1 1 1 d f 9 9 9 9 9 9 
+9 9 9 9 9 9 f d d d d d d 1 1 1 d f 9 9 9 9 9 9 
+9 9 9 9 9 9 f b d d d d b f d 1 d f 9 9 9 9 9 9 
+9 9 9 9 9 9 f c b b b d c f d d b f 9 9 9 9 9 9 
+9 9 9 9 9 9 9 f c b b 1 1 1 1 1 f 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 f f f f f 1 b 1 f 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 f b 1 1 1 c f b f 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 f f b 1 b 1 f f 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 f 9 f f f b f b f 9 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 f f f f f f f f 9 9 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 f f f f f 9 9 9 9 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+`)
+    pause(200)
     otherSprite.setImage(img`
 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
 9 1 1 1 1 1 1 9 9 9 9 9 9 9 9 9 1 1 9 9 9 9 9 9 
@@ -1683,6 +1715,20 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava1, function (sprite, location) {
     tiles.placeOnTile(caty, tiles.getTileLocation(1, 7))
     info.changeLifeBy(-1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.cat2, function (sprite, otherSprite) {
+    if (otherSprite == Magic_Cat) {
+        if (Quest_sterted == 8) {
+            git_gimes(otherSprite)
+            Quest_sterted = 9
+        } else if (Quest_sterted == 9) {
+            if (info.player2.score() >= 5) {
+            	
+            } else {
+                otherSprite.say("git gims")
+            }
+        }
+    }
 })
 function doSomething () {
     list = tiles.getTilesByType(sprites.dungeon.collectibleRedCrystal)
@@ -1839,7 +1885,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava0, function (sp
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite) {
     for (let index = 0; index < 10; index++) {
-        mySprite3 = sprites.create(img`
+        ice_projectile = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1857,12 +1903,12 @@ scene.onHitWall(SpriteKind.Projectile, function (sprite) {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.Projectile)
-        mySprite3.setFlag(SpriteFlag.Ghost, true)
-        mySprite3.setPosition(sprite.x, sprite.y)
-        mySprite3.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
+        ice_projectile.setFlag(SpriteFlag.Ghost, true)
+        ice_projectile.setPosition(sprite.x, sprite.y)
+        ice_projectile.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
         random_numper = Math.randomRange(100, 300)
         animation.runImageAnimation(
-        mySprite3,
+        ice_projectile,
         [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1939,7 +1985,7 @@ scene.onHitWall(SpriteKind.Projectile, function (sprite) {
     }
     sprite.destroy()
     for (let index = 0; index < 10; index++) {
-        mySprite3.destroy()
+        ice_projectile.destroy()
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
@@ -1964,7 +2010,7 @@ c d d 1 1 d d c
         }
         if_jupp2 = true
         for (let index = 0; index < 6; index++) {
-            mySprite3 = sprites.create(img`
+            ice_projectile = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1982,11 +2028,11 @@ c d d 1 1 d d c
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.prop)
-            mySprite3.setFlag(SpriteFlag.BounceOnWall, true)
-            mySprite3.setPosition(otherSprite.x, otherSprite.y)
-            mySprite3.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
+            ice_projectile.setFlag(SpriteFlag.BounceOnWall, true)
+            ice_projectile.setPosition(otherSprite.x, otherSprite.y)
+            ice_projectile.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
             animation.runImageAnimation(
-            mySprite3,
+            ice_projectile,
             [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -2060,7 +2106,7 @@ c d d 1 1 d d c
             false
             )
             pause(300)
-            mySprite3.destroy()
+            ice_projectile.destroy()
         }
     } else {
         info.changeLifeBy(-1)
@@ -2068,7 +2114,7 @@ c d d 1 1 d d c
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (carge_or_not == 2) {
+    if (carge_or_not >= 1) {
         caty.startEffect(effects.trail, 500)
         for (let index = 0; index < 21; index++) {
             caty.x += 1
@@ -2217,7 +2263,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.emmy_2, function (sprite, otherS
             }
             if_jupp2 = true
             for (let index = 0; index < 6; index++) {
-                mySprite3 = sprites.create(img`
+                ice_projectile = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -2235,11 +2281,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.emmy_2, function (sprite, otherS
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.prop)
-                mySprite3.setFlag(SpriteFlag.BounceOnWall, true)
-                mySprite3.setPosition(otherSprite.x, otherSprite.y)
-                mySprite3.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
+                ice_projectile.setFlag(SpriteFlag.BounceOnWall, true)
+                ice_projectile.setPosition(otherSprite.x, otherSprite.y)
+                ice_projectile.setVelocity(Math.randomRange(100, -100), Math.randomRange(100, -100))
                 animation.runImageAnimation(
-                mySprite3,
+                ice_projectile,
                 [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -2313,7 +2359,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.emmy_2, function (sprite, otherS
                 false
                 )
                 pause(300)
-                mySprite3.destroy()
+                ice_projectile.destroy()
             }
         } else {
             sprites.changeDataNumberBy(otherSprite, "life", -1)
@@ -2566,7 +2612,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.ff, function (sprite, otherSprite)
         sprites.changeDataNumberBy(sprite, "life", -1)
     }
 })
-let mySprite: Sprite = null
+let dog_cat: Sprite = null
 let target_2: Sprite = null
 let mySprite6: Sprite = null
 let THE_first_Boss: Sprite = null
@@ -2580,7 +2626,7 @@ let The_meter: Sprite = null
 let mySprite2: Sprite = null
 let f = 0
 let random_numper = 0
-let mySprite3: Sprite = null
+let ice_projectile: Sprite = null
 let carge_or_not = 0
 let name = ""
 let Quest_sterted = 0
@@ -2713,6 +2759,7 @@ c c c c c c . . . . . . . . . .
 . e 4 4 4 4 4 c c c c c . . . . 
 . e . . . 4 . . 4 . 4 . . . . . 
 `, SpriteKind.cat)
+sprites.setDataString(Magic_Cat, "name", "Magic Cat")
 tiles.placeOnTile(Magic_Cat, tiles.getTileLocation(55, 7))
 list = tiles.getTilesByType(myTiles.tile15)
 for (let value of list) {
@@ -2787,7 +2834,7 @@ blockSettings.writeNumber("seting", 0)
 doSomething3()
 caty.setPosition(blockSettings.readNumber("x psishon"), blockSettings.readNumber("y psishon"))
 life = info.life()
-if (Quest_sterted >= 6) {
+if (Quest_sterted >= 8) {
     Magic_Cat.setKind(SpriteKind.cat2)
     for (let value of tiles.getTilesByType(myTiles.tile29)) {
         tiles.setTileAt(value, sprites.dungeon.darkGroundCenter)
@@ -2800,6 +2847,13 @@ if (Quest_sterted >= 6) {
     tiles.setTileAt(tiles.getTileLocation(21, 5), myTiles.tile34)
     tiles.placeOnRandomTile(Magic_Cat, myTiles.tile38)
     doSomething4()
+    tiles.placeOnTile(Ice_Cat, tiles.getTileLocation(62, 6))
+    Ice_Cat.say("thank you")
+    tiles.setWallAt(tiles.getTileLocation(50, 17), true)
+    tiles.setWallAt(tiles.getTileLocation(51, 17), true)
+    tiles.setWallAt(tiles.getTileLocation(52, 17), true)
+    tiles.setWallAt(tiles.getTileLocation(53, 17), true)
+    tiles.setWallAt(tiles.getTileLocation(54, 17), true)
 } else {
     doSomething()
 }
@@ -3093,7 +3147,7 @@ forever(function () {
             pause(1000)
         }
         THE_first_Boss.destroy()
-        mySprite = sprites.create(img`
+        dog_cat = sprites.create(img`
 . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 
 . . . . . . . . . . . . . 
@@ -3111,12 +3165,12 @@ b b f 2 2 f f 2 2 f b b .
 . . . f f f f f f . . . . 
 . . . f f . . f f . . . . 
 `, SpriteKind.Player)
-        tiles.placeOnRandomTile(mySprite, myTiles.tile25)
+        tiles.placeOnRandomTile(dog_cat, myTiles.tile25)
         Quest_sterted = 8
-        mySprite.setVelocity(0, 50)
+        dog_cat.setVelocity(0, 50)
         pause(500)
         game.splash("what", "Dogcat")
-        mySprite.setFlag(SpriteFlag.Invisible, true)
+        dog_cat.setFlag(SpriteFlag.Invisible, true)
         tiles.setTileAt(tiles.getTileLocation(171, 19), sprites.dungeon.floorDark2)
         for (let value of tiles.getTilesByType(myTiles.tile29)) {
             tiles.setTileAt(value, sprites.dungeon.darkGroundCenter)
@@ -3139,8 +3193,8 @@ forever(function () {
     }
 })
 forever(function () {
-    if (Quest_sterted <= 8) {
-        music.playMelody("C5 G B A F A C5 B ", 220)
+    if (Quest_sterted >= 8) {
+        music.playMelody("G B A G C5 B A B ", 257)
     } else {
         if (Quest_sterted > 4) {
             music.setTempo(140)
@@ -3160,9 +3214,6 @@ forever(function () {
             music.playMelody("E F G A G F E A ", 220)
         }
     }
-})
-forever(function () {
-	
 })
 forever(function () {
     if (caty.isHittingTile(CollisionDirection.Bottom)) {
@@ -3295,9 +3346,6 @@ forever(function () {
             }
         }
     }
-})
-forever(function () {
-	
 })
 game.onUpdateInterval(1000, function () {
     if (blockSettings.exists("seting")) {
